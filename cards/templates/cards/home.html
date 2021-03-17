@@ -1,0 +1,40 @@
+{% extends "cards/base.html" %}
+{% load static %}
+{% block content %}
+	{% if user.is_authenticated %}
+		{% if decks %}
+			<h3 class="border-bottom mb-4">List of all decks of cards</h3>
+			
+			<form method="POST">
+			{% csrf_token %}
+				<input type='text' name='new_deck' placeholder="New deck" class="form-control mb-2">
+			</form>
+			{% for deck in decks %}
+			<div class="container mb-1 ">
+				<div class="row row-cols-3">
+					<div class='col-6 bg-light'>
+						<a class="btn btn-light" href="{% url 'watchcards' deck.id %}">{{ deck }}</a>
+					</div>
+					<div class='col-auto'>
+						<a type='button' class="btn btn-secondary" href="{% url 'edit' deck.id %}">edit</a>
+					</div>
+					<div class="col-auto">
+						<form method="POST">
+							{% csrf_token %}
+							<button class="btn" name='delete' value='{{ deck.id }}'><img src="{% static 'cards/images/x-circle-fill.svg' %}" alt="delete" style="height: 16px;"></button>
+						</form>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		{% else %}
+			<h3>You have 0 decks. Want to make one?</h3>
+			<form method="POST">
+			{% csrf_token %}
+				<input type='text' name='new_deck' placeholder="New deck" class="form-control mb-2">
+			</form>
+		{% endif %}
+	{% else %}
+		<h3> This project allows your to create many different decks of cards to learn some new words or terms. First register or log in to begin.</h3>
+	{% endif %}
+{% endblock %}

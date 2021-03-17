@@ -1,0 +1,49 @@
+{% extends "cards/base.html" %}
+{% load static %}
+{% block content %}
+	{% if deck %}
+		<h3 class="border-bottom mb-4">List of cards of deck '{{ deck.name }}'</h3>
+		<div class="container">
+			<form method="POST">
+			{% csrf_token %}
+				<div class="row">
+					<div class="col-auto mb-2">
+						<input id="theFirstForm" type='text' required name='word' placeholder="word" class="form-control">
+					</div>
+					<div class="col-auto">
+						<input type='text' required name='translated_word' placeholder="translated word" class="form-control">
+					</div>
+					<div class="col-auto">
+						<button class="btn btn-primary" name='new_card' value='True'>Add</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="container mt-3">
+			<div class="container">
+			{% for card in cards %}
+				<div class="row row-cols-2 border-top pt-2 mb-2">
+					<div class="col-10 row">
+						<div class='col border pt-2'>
+							<p class="mb-2">{{ card.word }}</p>
+						</div>
+						<div class='col border pt-2'>
+							<p class="mb-2">{{ card.translated_word }}</p>
+						</div>
+					</div>
+					<div class="col-auto">
+						<form method="POST">
+							{% csrf_token %}
+							<button class="btn" name='delete' value='{{ card.id }}'><img src="{% static 'cards/images/x-circle-fill.svg' %}" alt="delete" style="height: 16px;"></button>
+						</form>
+					</div>
+				</div>
+			{% endfor %}
+			</div>
+		</div>
+		<script type="text/javascript">theFirstForm.focus();</script>
+	{%  else %}
+		<h3 class="border-bottom mb-4">You have no permision to edit this deck</h3>
+	{% endif %}
+
+{% endblock %}
