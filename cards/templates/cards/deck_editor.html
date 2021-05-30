@@ -8,10 +8,10 @@
 			{% csrf_token %}
 				<div class="row">
 					<div class="col-auto mb-2">
-						<input id="theFirstForm" type='text' required name='word' placeholder="word" class="form-control">
+						<input id="theFirstForm" type='text' required name='word' placeholder="word" class="form-control" maxlength="150">
 					</div>
 					<div class="col-auto">
-						<input type='text' required name='translated_word' placeholder="translated word" class="form-control">
+						<input type='text' required name='translated_word' placeholder="translated word" class="form-control" maxlength="150">
 					</div>
 					<div class="col-auto">
 						<button class="btn btn-primary" name='new_card' value='True'>Add</button>
