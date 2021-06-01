@@ -7,7 +7,7 @@
 			
 			<form method="POST">
 			{% csrf_token %}
-				<input type='text' name='new_deck' placeholder="New deck" class="form-control mb-2">
+				<input type='text' name='new_deck' placeholder="New deck" class="form-control mb-2" maxlength='100'>
 			</form>
 			{% for deck in decks %}
 			<div class="container mb-1 ">
